@@ -100,21 +100,25 @@
     <dependency>
       <groupId>org.lwjgl</groupId>
       <artifactId>lwjgl</artifactId>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.lwjgl</groupId>
       <artifactId>lwjgl-platform</artifactId>
       <classifier>natives-linux</classifier>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.lwjgl</groupId>
       <artifactId>lwjgl-platform</artifactId>
       <classifier>natives-osx</classifier>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.lwjgl</groupId>
       <artifactId>lwjgl-platform</artifactId>
       <classifier>natives-windows</classifier>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 
