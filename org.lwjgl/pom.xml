@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.io7m.bundles</groupId>
+    <artifactId>org.lwjgl.parent</artifactId>
+    <version>3.1.0</version>
+  </parent>
+
+  <packaging>bundle</packaging>
+  <artifactId>org.lwjgl</artifactId>
+  <name>org.lwjgl</name>
+  <description>LWJGL OSGi bundle (Core)</description>
+  <url>http://github.com/io7m/org.lwjgl</url>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl</artifactId>
+      <classifier>natives-linux</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl</artifactId>
+      <classifier>natives-macos</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl</artifactId>
+      <classifier>natives-windows</classifier>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <!-- Unpack LWJGL natives -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>unpack-natives-linux</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <overWriteReleases>true</overWriteReleases>
+              <includeGroupIds>org.lwjgl</includeGroupIds>
+              <includeArtifactIds>lwjgl</includeArtifactIds>
+              <includeClassifiers>natives-linux</includeClassifiers>
+              <includeTypes>jar</includeTypes>
+              <includes>**\/*.so</includes>
+              <outputDirectory>${project.build.directory}/unpacked/natives/linux/x86_64</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>unpack-natives-windows-x86</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <overWriteReleases>true</overWriteReleases>
+              <includeGroupIds>org.lwjgl</includeGroupIds>
+              <includeArtifactIds>lwjgl</includeArtifactIds>
+              <includeClassifiers>natives-windows</includeClassifiers>
+              <includeTypes>jar</includeTypes>
+              <includes>
+                lwjgl32.dll
+              </includes>
+              <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>unpack-natives-windows-x86_64</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <overWriteReleases>true</overWriteReleases>
+              <includeGroupIds>org.lwjgl</includeGroupIds>
+              <includeArtifactIds>lwjgl</includeArtifactIds>
+              <includeClassifiers>natives-windows</includeClassifiers>
+              <includeTypes>jar</includeTypes>
+              <includes>
+                lwjgl.dll
+              </includes>
+              <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86_64</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>unpack-natives-macos-x86_64</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <overWriteReleases>true</overWriteReleases>
+              <includeGroupIds>org.lwjgl</includeGroupIds>
+              <includeArtifactIds>lwjgl</includeArtifactIds>
+              <includeClassifiers>natives-macos</includeClassifiers>
+              <includeTypes>jar</includeTypes>
+              <includes>**\/*.dylib</includes>
+              <outputDirectory>${project.build.directory}/unpacked/natives/osx/x86_64</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Produce OSGi bundle -->
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <id>default-bundle</id>
+            <configuration>
+              <instructions>
+                <Import-Package>
+                  <!-- LWJGL states that sun.misc.Unsafe is optional but recommended -->
+                  sun.misc; resolution:="optional"
+                </Import-Package>
+                <Export-Package>
+                  org.lwjgl,
+                  org.lwjgl.*
+                </Export-Package>
+
+                <Include-Resource>
+                  ${project.build.directory}/unpacked/
+                </Include-Resource>
+
+                <Bundle-NativeCode>
+                  natives/windows/x86/lwjgl32.dll;
+                  osname=Windows; processor=x86,
+
+                  natives/windows/x86_64/lwjgl.dll;
+                  osname=Windows; processor=x86-64,
+
+                  natives/linux/x86_64/liblwjgl.so;
+                  osname=Linux; processor=x86-64,
+
+                  natives/osx/x86_64/liblwjgl.dylib;
+                  osname=MacOSX; processor=x86-64
+                </Bundle-NativeCode>
+
+                <Specification-Title>Lightweight Java Game Library</Specification-Title>
+                <Specification-Version>${project.version}</Specification-Version>
+                <Specification-Vendor>lwjgl.org</Specification-Vendor>
+                <Implementation-Title>lwjgl</Implementation-Title>
+                <Implementation-Version>${project.version}</Implementation-Version>
+                <Implementation-Vendor>lwjgl.org</Implementation-Vendor>
+                <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
+
+                <Built-By>io7m</Built-By>
+                <Sealed>true</Sealed>
+              </instructions>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
