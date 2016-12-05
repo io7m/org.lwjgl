@@ -134,6 +134,30 @@
 
       <dependency>
         <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-jemalloc</artifactId>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-jemalloc</artifactId>
+        <classifier>natives-linux</classifier>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-jemalloc</artifactId>
+        <classifier>natives-macos</classifier>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-jemalloc</artifactId>
+        <classifier>natives-windows</classifier>
+        <version>3.1.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.lwjgl</groupId>
         <artifactId>lwjgl-opencl</artifactId>
         <version>3.1.0</version>
       </dependency>

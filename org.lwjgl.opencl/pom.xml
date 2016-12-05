@@ -27,6 +27,7 @@
     <dependency>
       <groupId>org.lwjgl</groupId>
       <artifactId>lwjgl-opencl</artifactId>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
