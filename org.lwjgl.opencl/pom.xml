@@ -12,21 +12,26 @@
   </parent>
 
   <packaging>bundle</packaging>
-  <artifactId>org.lwjgl.opengl</artifactId>
-  <name>org.lwjgl.opengl</name>
-  <description>LWJGL OSGi bundle (OpenGL)</description>
+  <artifactId>org.lwjgl.opencl</artifactId>
+  <name>org.lwjgl.opencl</name>
+  <description>LWJGL OSGi bundle (OpenCL)</description>
   <url>http://github.com/io7m/org.lwjgl</url>
 
   <dependencies>
     <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>org.lwjgl</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.lwjgl</groupId>
-      <artifactId>lwjgl-opengl</artifactId>
+      <artifactId>lwjgl-opencl</artifactId>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
-
       <!-- Produce OSGi bundle -->
       <plugin>
         <groupId>org.apache.felix</groupId>
@@ -50,11 +55,11 @@
                 </Import-Package>
 
                 <Embed-Dependency>
-                  artifactId=lwjgl-opengl;inline=**/*.class
+                  artifactId=lwjgl-opencl;inline=**/*.class
                 </Embed-Dependency>
 
                 <Export-Package>
-                  org.lwjgl.opengl
+                  org.lwjgl.opencl
                 </Export-Package>
 
                 <Specification-Title>Lightweight Java Game Library</Specification-Title>

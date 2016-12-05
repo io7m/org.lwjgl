@@ -15,7 +15,9 @@
   <url>http://github.com/io7m/org.lwjgl</url>
 
   <modules>
+    <module>org.lwjgl.glfw</module>
     <module>org.lwjgl.openal</module>
+    <module>org.lwjgl.opencl</module>
     <module>org.lwjgl.opengl</module>
     <module>org.lwjgl</module>
   </modules>
@@ -126,6 +128,36 @@
       <dependency>
         <groupId>org.lwjgl</groupId>
         <artifactId>lwjgl-openal</artifactId>
+        <classifier>natives-windows</classifier>
+        <version>3.1.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-opencl</artifactId>
+        <version>3.1.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-glfw</artifactId>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-glfw</artifactId>
+        <classifier>natives-linux</classifier>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-glfw</artifactId>
+        <classifier>natives-macos</classifier>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-glfw</artifactId>
         <classifier>natives-windows</classifier>
         <version>3.1.0</version>
       </dependency>
