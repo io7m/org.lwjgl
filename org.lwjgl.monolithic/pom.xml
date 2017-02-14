@@ -23,6 +23,24 @@
       <artifactId>lwjgl-opengl</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-opengl</artifactId>
+      <classifier>natives-linux</classifier>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-opengl</artifactId>
+      <classifier>natives-macos</classifier>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-opengl</artifactId>
+      <classifier>natives-windows</classifier>
+      <scope>provided</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.lwjgl</groupId>
@@ -149,8 +167,12 @@
               <includeArtifactIds>lwjgl-openal</includeArtifactIds>
               <includeClassifiers>natives-linux</includeClassifiers>
               <includeTypes>jar</includeTypes>
-              <includes>**\/*.so</includes>
+              <includes>
+                **\/*.so,
+                **\/*.so.sha1
+              </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/linux/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/linux/x86_64</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -166,9 +188,11 @@
               <includeClassifiers>natives-windows</includeClassifiers>
               <includeTypes>jar</includeTypes>
               <includes>
-                OpenAL32.dll
+                OpenAL32.dll,
+                OpenAL32.dll.sha1
               </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/windows/x86</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -184,9 +208,11 @@
               <includeClassifiers>natives-windows</includeClassifiers>
               <includeTypes>jar</includeTypes>
               <includes>
-                OpenAL.dll
+                OpenAL.dll,
+                OpenAL.dll.sha1
               </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/windows/x86_64</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -201,8 +227,94 @@
               <includeArtifactIds>lwjgl-openal</includeArtifactIds>
               <includeClassifiers>natives-macos</includeClassifiers>
               <includeTypes>jar</includeTypes>
-              <includes>**\/*.dylib</includes>
+              <includes>
+                **\/*.dylib,
+                **\/*.dylib.sha1
+              </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/osx/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/osx/x86_64</markersDirectory>
+            </configuration>
+          </execution>
+
+          <!-- Unpack OpenGL natives -->
+          <execution>
+            <id>unpack-natives-opengl-linux</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <overWriteReleases>true</overWriteReleases>
+              <includeGroupIds>org.lwjgl</includeGroupIds>
+              <includeArtifactIds>lwjgl-opengl</includeArtifactIds>
+              <includeClassifiers>natives-linux</includeClassifiers>
+              <includeTypes>jar</includeTypes>
+              <includes>
+                **\/*.so,
+                **\/*.so.sha1
+              </includes>
+              <outputDirectory>${project.build.directory}/unpacked/natives/linux/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/linux/x86_64</markersDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>unpack-natives-opengl-windows-x86</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <overWriteReleases>true</overWriteReleases>
+              <includeGroupIds>org.lwjgl</includeGroupIds>
+              <includeArtifactIds>lwjgl-opengl</includeArtifactIds>
+              <includeClassifiers>natives-windows</includeClassifiers>
+              <includeTypes>jar</includeTypes>
+              <includes>
+                lwjgl_opengl32.dll,
+                lwjgl_opengl32.dll.sha1
+              </includes>
+              <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/windows/x86</markersDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>unpack-natives-opengl-windows-x86_64</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <overWriteReleases>true</overWriteReleases>
+              <includeGroupIds>org.lwjgl</includeGroupIds>
+              <includeArtifactIds>lwjgl-opengl</includeArtifactIds>
+              <includeClassifiers>natives-windows</includeClassifiers>
+              <includeTypes>jar</includeTypes>
+              <includes>
+                lwjgl_opengl.dll,
+                lwjgl_opengl.dll.sha1
+              </includes>
+              <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/windows/x86_64</markersDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>unpack-natives-opengl-macos-x86_64</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <overWriteReleases>true</overWriteReleases>
+              <includeGroupIds>org.lwjgl</includeGroupIds>
+              <includeArtifactIds>lwjgl-opengl</includeArtifactIds>
+              <includeClassifiers>natives-macos</includeClassifiers>
+              <includeTypes>jar</includeTypes>
+              <includes>
+                **\/*.dylib,
+                **\/*.dylib.sha1
+              </includes>
+              <outputDirectory>${project.build.directory}/unpacked/natives/osx/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/osx/x86_64</markersDirectory>
             </configuration>
           </execution>
 
@@ -219,8 +331,12 @@
               <includeArtifactIds>lwjgl-glfw</includeArtifactIds>
               <includeClassifiers>natives-linux</includeClassifiers>
               <includeTypes>jar</includeTypes>
-              <includes>**\/*.so</includes>
+              <includes>
+                **\/*.so,
+                **\/*.so.sha1
+              </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/linux/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/linux/x86_64</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -236,9 +352,11 @@
               <includeClassifiers>natives-windows</includeClassifiers>
               <includeTypes>jar</includeTypes>
               <includes>
-                glfw32.dll
+                glfw32.dll,
+                glfw32.dll.sha1
               </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/windows/x86</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -254,9 +372,11 @@
               <includeClassifiers>natives-windows</includeClassifiers>
               <includeTypes>jar</includeTypes>
               <includes>
-                glfw.dll
+                glfw.dll,
+                glfw.dll.sha1
               </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/windows/x86_64</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -271,8 +391,12 @@
               <includeArtifactIds>lwjgl-glfw</includeArtifactIds>
               <includeClassifiers>natives-macos</includeClassifiers>
               <includeTypes>jar</includeTypes>
-              <includes>**\/*.dylib</includes>
+              <includes>
+                **\/*.dylib,
+                **\/*.dylib.sha1
+              </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/osx/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/osx/x86_64</markersDirectory>
             </configuration>
           </execution>
 
@@ -294,6 +418,7 @@
                 liblwjgl.so.sha1
               </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/linux/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/linux/x86_64</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -313,6 +438,7 @@
                 lwjgl32.dll.sha1
               </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/windows/x86</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -332,6 +458,7 @@
                 lwjgl.dll.sha1
               </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/windows/x86_64</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -346,8 +473,12 @@
               <includeArtifactIds>lwjgl</includeArtifactIds>
               <includeClassifiers>natives-macos</includeClassifiers>
               <includeTypes>jar</includeTypes>
-              <includes>**\/*.dylib, **\/*.dylib.sha1</includes>
+              <includes>
+                **\/*.dylib,
+                **\/*.dylib.sha1
+              </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/osx/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/osx/x86_64</markersDirectory>
             </configuration>
           </execution>
 
@@ -363,8 +494,12 @@
               <includeArtifactIds>lwjgl-jemalloc</includeArtifactIds>
               <includeClassifiers>natives-linux</includeClassifiers>
               <includeTypes>jar</includeTypes>
-              <includes>**\/*.so, **\/*.so.sha1</includes>
+              <includes>
+                **\/*.so,
+                **\/*.so.sha1
+              </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/linux/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/linux/x86_64</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -384,6 +519,7 @@
                 jemalloc32.dll.sha1
               </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/windows/x86</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -403,6 +539,7 @@
                 jemalloc.dll.sha1
               </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/windows/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/windows/x86_64</markersDirectory>
             </configuration>
           </execution>
           <execution>
@@ -417,8 +554,12 @@
               <includeArtifactIds>lwjgl-jemalloc</includeArtifactIds>
               <includeClassifiers>natives-macos</includeClassifiers>
               <includeTypes>jar</includeTypes>
-              <includes>**\/*.dylib, **\/*.dylib.sha1</includes>
+              <includes>
+                **\/*.dylib,
+                **\/*.dylib.sha1
+              </includes>
               <outputDirectory>${project.build.directory}/unpacked/natives/osx/x86_64</outputDirectory>
+              <markersDirectory>${project.build.directory}/unpack-markers/osx/x86_64</markersDirectory>
             </configuration>
           </execution>
 
@@ -440,13 +581,15 @@
                   sun.misc; resolution:="optional"
                 </Import-Package>
 
+                <!-- Do not include Java 9 classes from META-INF due to -->
+                <!-- https://issues.apache.org/jira/browse/FELIX-5527 -->
                 <Embed-Dependency>
-                  artifactId=lwjgl-openal;inline=**/*.class,
-                  artifactId=lwjgl-glfw;inline=**/*.class,
-                  artifactId=lwjgl;inline=**/*.class,
-                  artifactId=lwjgl-jemalloc;inline=**/*.class,
-                  artifactId=lwjgl-opencl;inline=**/*.class,
-                  artifactId=lwjgl-opengl;inline=**/*.class
+                  artifactId=lwjgl-openal;inline=!META-INF/**/*.class,
+                  artifactId=lwjgl-glfw;inline=!META-INF/**/*.class,
+                  artifactId=lwjgl;inline=!META-INF/**/*.class,
+                  artifactId=lwjgl-jemalloc;inline=!META-INF/**/*.class,
+                  artifactId=lwjgl-opencl;inline=!META-INF/**/*.class,
+                  artifactId=lwjgl-opengl;inline=!META-INF/**/*.class
                 </Embed-Dependency>
 
                 <Export-Package>
@@ -459,25 +602,33 @@
                 </Include-Resource>
 
                 <Bundle-NativeCode>
-                  natives/windows/x86/lwjgl32.dll; osname=Windows; processor=x86,
-                  natives/windows/x86_64/lwjgl.dll; osname=Windows; processor=x86-64,
-                  natives/linux/x86_64/liblwjgl.so; osname=Linux; processor=x86-64,
-                  natives/osx/x86_64/liblwjgl.dylib; osname=MacOSX; processor=x86-64,
+                  natives/windows/x86/lwjgl32.dll;
+                  natives/windows/x86/OpenAL32.dll;
+                  natives/windows/x86/jemalloc32.dll;
+                  natives/windows/x86/glfw32.dll;
+                  natives/windows/x86/lwjgl_opengl32.dll;
+                  osname=Windows; processor=x86,
 
-                  natives/windows/x86/OpenAL32.dll; osname=Windows; processor=x86,
-                  natives/windows/x86_64/OpenAL.dll; osname=Windows; processor=x86-64,
-                  natives/linux/x86_64/libopenal.so; osname=Linux; processor=x86-64,
-                  natives/osx/x86_64/libopenal.dylib; osname=MacOSX; processor=x86-64,
+                  natives/windows/x86_64/lwjgl.dll;
+                  natives/windows/x86_64/OpenAL.dll;
+                  natives/windows/x86_64/jemalloc.dll;
+                  natives/windows/x86_64/glfw.dll;
+                  natives/windows/x86_64/lwjgl_opengl.dll;
+                  osname=Windows; processor=x86-64,
 
-                  natives/windows/x86/jemalloc32.dll; osname=Windows; processor=x86,
-                  natives/windows/x86_64/jemalloc.dll; osname=Windows; processor=x86-64,
-                  natives/linux/x86_64/libjemalloc.so; osname=Linux; processor=x86-64,
-                  natives/osx/x86_64/libjemalloc.dylib; osname=MacOSX; processor=x86-64,
+                  natives/linux/x86_64/liblwjgl.so;
+                  natives/linux/x86_64/libopenal.so;
+                  natives/linux/x86_64/libjemalloc.so;
+                  natives/linux/x86_64/libglfw.so;
+                  natives/linux/x86_64/liblwjgl_opengl.so;
+                  osname=Linux; processor=x86-64,
 
-                  natives/windows/x86/glfw32.dll; osname=Windows; processor=x86,
-                  natives/windows/x86_64/glfw.dll; osname=Windows; processor=x86-64,
-                  natives/linux/x86_64/libglfw.so; osname=Linux; processor=x86-64,
-                  natives/osx/x86_64/libglfw.dylib; osname=MacOSX; processor=x86-64
+                  natives/osx/x86_64/liblwjgl.dylib;
+                  natives/osx/x86_64/libopenal.dylib;
+                  natives/osx/x86_64/libjemalloc.dylib;
+                  natives/osx/x86_64/libglfw.dylib;
+                  natives/osx/x86_64/liblwjgl_opengl.dylib;
+                  osname=MacOSX; processor=x86-64
                 </Bundle-NativeCode>
 
                 <Specification-Title>Lightweight Java Game Library</Specification-Title>
