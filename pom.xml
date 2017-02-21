@@ -18,6 +18,7 @@
     <module>org.lwjgl.glfw</module>
     <module>org.lwjgl.lwjgl</module>
     <module>org.lwjgl.monolithic</module>
+    <module>org.lwjgl.openal</module>
     <module>org.lwjgl.opengl</module>
   </modules>
 
